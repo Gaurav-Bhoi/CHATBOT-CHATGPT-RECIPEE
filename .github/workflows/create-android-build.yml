@@ -37,7 +37,7 @@ jobs:
       - name: Run npm Install
         run: |
           npm i -g corepack
-          npm install
+          npm install -f
 
       - name: delete build folders
         run: |
