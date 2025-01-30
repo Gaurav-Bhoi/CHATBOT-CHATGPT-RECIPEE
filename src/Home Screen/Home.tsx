@@ -7,6 +7,7 @@ import {
 } from '../Interface/interface';
 import {getRecipees} from '../ChatBot Screen/ChatbotModel';
 import RecipeeCard from '../Components/RecipeeCard';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Home = ({}: HomeScreenProps) => {
   const [recipees, setRecipees] = useState<RecipeeObject[]>([]);
@@ -16,9 +17,9 @@ const Home = ({}: HomeScreenProps) => {
     setRecipees(allRecipees);
   }, []);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     getAllRecipees();
-  }, [getAllRecipees]);
+  });
 
   const renderItem = (item: RecipeeObject) => {
     return <RecipeeCard item={item} isSaveable={false} />;
