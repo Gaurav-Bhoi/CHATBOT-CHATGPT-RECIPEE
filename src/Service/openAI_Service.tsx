@@ -25,6 +25,7 @@ export const askBot: askBotInterface = async (...args) => {
 
     if (keywords) {
       const recipeeResult = await getRecipee(keywords);
+
       return recipeeResult;
     }
 
@@ -37,12 +38,13 @@ export const askBot: askBotInterface = async (...args) => {
         headers: headers,
       },
     );
+
     return {
       sender: senderType.bot,
       message: resp.data[0]?.generated_text,
       recipee: [],
     };
-  } catch (e) {
+  } catch {
     toast('Looks like chatbot is offline at the time');
     return {
       sender: senderType.bot,
@@ -63,7 +65,7 @@ const extractKeywords: keywordExtractorInterface = async (...args) => {
         headers: {Authorization: `Bearer ${HUGGINGFACE_API_KEY}`},
       },
     );
-    console.log('this is reposnse', response);
+
     const keywords = response.data.map((item: {word: string}) => item.word);
     return keywords.slice(0, 3).join(' ');
   } catch {
