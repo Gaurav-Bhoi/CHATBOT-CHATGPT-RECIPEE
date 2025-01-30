@@ -28,6 +28,7 @@ const Chatbot = ({}: ChatbotScreenProps) => {
   const [chat, setChat] = useState<chatInterface[]>([]);
   const [isListening, setIsListening] = useState<boolean>(false);
   const flatListRef = useRef<FlatList<chatInterface>>(null);
+  const [recText, setRecText] = useState<string>('');
 
   const callBotService = useCallback(async (input: string) => {
     setChat(prevChat => {
@@ -77,17 +78,27 @@ const Chatbot = ({}: ChatbotScreenProps) => {
   );
 
   useEffect(() => {
-    Voice.onSpeechStart = () => setIsListening(true);
-    Voice.onSpeechEnd = () => setIsListening(false);
+    Voice.onSpeechStart = () => {
+      setIsListening(true);
+    };
+    Voice.onSpeechEnd = () => {
+      setIsListening(false);
+      onSendText(recText);
+    };
     Voice.onSpeechResults = event => {
       onSendText(event.value?.[0] ?? '');
+    };
+    Voice.onSpeechPartialResults = event => {
+      if (event.value?.[0]) {
+        setRecText(event.value?.[0]);
+      }
     };
     Voice.onSpeechError = () => setIsListening(false);
 
     return () => {
       Voice.destroy().then(Voice.removeAllListeners);
     };
-  }, [onSendText]);
+  }, [onSendText, recText]);
 
   const renderItem = (item: chatInterface) => {
     return <ChatComponent item={item} />;
@@ -156,8 +167,12 @@ const Chatbot = ({}: ChatbotScreenProps) => {
             {backgroundColor: isListening ? 'red' : '#4caf50'},
           ]}
           onPress={isListening ? stopListening : startListening}
-          onPressIn={startListening}
-          onPressOut={stopListening}>
+          // onPressIn={() => {
+          //   if (!isListening) {
+          //     startListening();
+          //   }
+          // }}
+        >
           <Icon name="microphone" size={20} color="black" />
         </TouchableOpacity>
       </View>

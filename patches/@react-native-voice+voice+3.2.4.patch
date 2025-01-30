@@ -1,0 +1,262 @@
+diff --git a/node_modules/@react-native-voice/voice/.circleci/config.yml b/node_modules/@react-native-voice/voice/.circleci/config.yml
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/.eslintrc b/node_modules/@react-native-voice/voice/.eslintrc
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/.prettierrc b/node_modules/@react-native-voice/voice/.prettierrc
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/.releaserc b/node_modules/@react-native-voice/voice/.releaserc
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/LICENSE b/node_modules/@react-native-voice/voice/LICENSE
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/README.md b/node_modules/@react-native-voice/voice/README.md
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/android/android.iml b/node_modules/@react-native-voice/voice/android/android.iml
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/android/build.gradle b/node_modules/@react-native-voice/voice/android/build.gradle
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/android/gradle/wrapper/gradle-wrapper.properties b/node_modules/@react-native-voice/voice/android/gradle/wrapper/gradle-wrapper.properties
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/android/gradlew b/node_modules/@react-native-voice/voice/android/gradlew
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/android/gradlew.bat b/node_modules/@react-native-voice/voice/android/gradlew.bat
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/android/react-native-voice.iml b/node_modules/@react-native-voice/voice/android/react-native-voice.iml
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/android/src/main/AndroidManifest.xml b/node_modules/@react-native-voice/voice/android/src/main/AndroidManifest.xml
+old mode 100644
+new mode 100755
+index 9a75230..2f6747e
+--- a/node_modules/@react-native-voice/voice/android/src/main/AndroidManifest.xml
++++ b/node_modules/@react-native-voice/voice/android/src/main/AndroidManifest.xml
+@@ -5,4 +5,9 @@
+     <uses-sdk tools:overrideLibrary="com.facebook.react" />
+     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+     <uses-permission android:name="android.permission.INTERNET" />
++    <queries>
++        <intent>
++            <action android:name="android.speech.RecognitionService" />
++        </intent>
++    </queries>
+ </manifest>
+diff --git a/node_modules/@react-native-voice/voice/android/src/main/java/com/wenkesj/voice/VoiceModule.java b/node_modules/@react-native-voice/voice/android/src/main/java/com/wenkesj/voice/VoiceModule.java
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/android/src/main/java/com/wenkesj/voice/VoicePackage.java b/node_modules/@react-native-voice/voice/android/src/main/java/com/wenkesj/voice/VoicePackage.java
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/app.plugin.js b/node_modules/@react-native-voice/voice/app.plugin.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/dist/VoiceModuleTypes.d.ts b/node_modules/@react-native-voice/voice/dist/VoiceModuleTypes.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/dist/VoiceModuleTypes.d.ts.map b/node_modules/@react-native-voice/voice/dist/VoiceModuleTypes.d.ts.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/dist/VoiceModuleTypes.js b/node_modules/@react-native-voice/voice/dist/VoiceModuleTypes.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/dist/index.d.ts b/node_modules/@react-native-voice/voice/dist/index.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/dist/index.d.ts.map b/node_modules/@react-native-voice/voice/dist/index.d.ts.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/dist/index.js b/node_modules/@react-native-voice/voice/dist/index.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/.buckconfig b/node_modules/@react-native-voice/voice/example/.buckconfig
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/.flowconfig b/node_modules/@react-native-voice/voice/example/.flowconfig
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/.gitattributes b/node_modules/@react-native-voice/voice/example/.gitattributes
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/.prettierrc.js b/node_modules/@react-native-voice/voice/example/.prettierrc.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/_BUCK b/node_modules/@react-native-voice/voice/example/android/app/_BUCK
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/build.gradle b/node_modules/@react-native-voice/voice/example/android/app/build.gradle
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/build_defs.bzl b/node_modules/@react-native-voice/voice/example/android/app/build_defs.bzl
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/debug.keystore b/node_modules/@react-native-voice/voice/example/android/app/debug.keystore
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/proguard-rules.pro b/node_modules/@react-native-voice/voice/example/android/app/proguard-rules.pro
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/debug/AndroidManifest.xml b/node_modules/@react-native-voice/voice/example/android/app/src/debug/AndroidManifest.xml
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/AndroidManifest.xml b/node_modules/@react-native-voice/voice/example/android/app/src/main/AndroidManifest.xml
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-hdpi/ic_launcher.png b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-hdpi/ic_launcher.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-mdpi/ic_launcher.png b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-mdpi/ic_launcher.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/values/strings.xml b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/values/strings.xml
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/app/src/main/res/values/styles.xml b/node_modules/@react-native-voice/voice/example/android/app/src/main/res/values/styles.xml
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/build.gradle b/node_modules/@react-native-voice/voice/example/android/build.gradle
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/gradle.properties b/node_modules/@react-native-voice/voice/example/android/gradle.properties
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/gradle/wrapper/gradle-wrapper.properties b/node_modules/@react-native-voice/voice/example/android/gradle/wrapper/gradle-wrapper.properties
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/gradlew.bat b/node_modules/@react-native-voice/voice/example/android/gradlew.bat
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/android/settings.gradle b/node_modules/@react-native-voice/voice/example/android/settings.gradle
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/app.json b/node_modules/@react-native-voice/voice/example/app.json
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/babel.config.js b/node_modules/@react-native-voice/voice/example/babel.config.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/index.js b/node_modules/@react-native-voice/voice/example/index.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/ios/Podfile b/node_modules/@react-native-voice/voice/example/ios/Podfile
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/ios/Podfile.lock b/node_modules/@react-native-voice/voice/example/ios/Podfile.lock
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/ios/VoiceTest-tvOS/Info.plist b/node_modules/@react-native-voice/voice/example/ios/VoiceTest-tvOS/Info.plist
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/ios/VoiceTest-tvOSTests/Info.plist b/node_modules/@react-native-voice/voice/example/ios/VoiceTest-tvOSTests/Info.plist
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/ios/VoiceTest.xcodeproj/project.pbxproj b/node_modules/@react-native-voice/voice/example/ios/VoiceTest.xcodeproj/project.pbxproj
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/ios/VoiceTest.xcodeproj/xcshareddata/xcschemes/VoiceTest-tvOS.xcscheme b/node_modules/@react-native-voice/voice/example/ios/VoiceTest.xcodeproj/xcshareddata/xcschemes/VoiceTest-tvOS.xcscheme
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/ios/VoiceTest.xcodeproj/xcshareddata/xcschemes/VoiceTest.xcscheme b/node_modules/@react-native-voice/voice/example/ios/VoiceTest.xcodeproj/xcshareddata/xcschemes/VoiceTest.xcscheme
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/ios/VoiceTest.xcworkspace/contents.xcworkspacedata b/node_modules/@react-native-voice/voice/example/ios/VoiceTest.xcworkspace/contents.xcworkspacedata
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/ios/VoiceTestTests/Info.plist b/node_modules/@react-native-voice/voice/example/ios/VoiceTestTests/Info.plist
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/ios/VoiceTestTests/VoiceTestTests.m b/node_modules/@react-native-voice/voice/example/ios/VoiceTestTests/VoiceTestTests.m
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/metro.config.js b/node_modules/@react-native-voice/voice/example/metro.config.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/package.json b/node_modules/@react-native-voice/voice/example/package.json
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/src/VoiceTest.tsx b/node_modules/@react-native-voice/voice/example/src/VoiceTest.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/src/VoiceTestFuncComp.tsx b/node_modules/@react-native-voice/voice/example/src/VoiceTestFuncComp.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/src/button.png b/node_modules/@react-native-voice/voice/example/src/button.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/tsconfig.json b/node_modules/@react-native-voice/voice/example/tsconfig.json
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/example/yarn.lock b/node_modules/@react-native-voice/voice/example/yarn.lock
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/ios/Voice.xcodeproj/project.pbxproj b/node_modules/@react-native-voice/voice/ios/Voice.xcodeproj/project.pbxproj
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/ios/Voice.xcodeproj/project.xcworkspace/contents.xcworkspacedata b/node_modules/@react-native-voice/voice/ios/Voice.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/ios/Voice.xcodeproj/project.xcworkspace/xcuserdata/rudie_shahinian.xcuserdatad/UserInterfaceState.xcuserstate b/node_modules/@react-native-voice/voice/ios/Voice.xcodeproj/project.xcworkspace/xcuserdata/rudie_shahinian.xcuserdatad/UserInterfaceState.xcuserstate
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/ios/Voice/Voice.h b/node_modules/@react-native-voice/voice/ios/Voice/Voice.h
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/ios/Voice/Voice.m b/node_modules/@react-native-voice/voice/ios/Voice/Voice.m
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/plugin/build/withVoice.d.ts b/node_modules/@react-native-voice/voice/plugin/build/withVoice.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/plugin/build/withVoice.js b/node_modules/@react-native-voice/voice/plugin/build/withVoice.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/plugin/src/withVoice.ts b/node_modules/@react-native-voice/voice/plugin/src/withVoice.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/plugin/tsconfig.json b/node_modules/@react-native-voice/voice/plugin/tsconfig.json
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/react-native-voice.podspec b/node_modules/@react-native-voice/voice/react-native-voice.podspec
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/src/VoiceModuleTypes.ts b/node_modules/@react-native-voice/voice/src/VoiceModuleTypes.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/src/index.ts b/node_modules/@react-native-voice/voice/src/index.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/@react-native-voice/voice/tsconfig.json b/node_modules/@react-native-voice/voice/tsconfig.json
+old mode 100644
+new mode 100755
