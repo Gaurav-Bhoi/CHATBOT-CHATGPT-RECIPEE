@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ChatComponentInterface,
   RecipeeObject,
@@ -10,25 +10,56 @@ import {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RecipeeCard from './RecipeeCard';
 
-const ChatComponent: React.FC<ChatComponentInterface> = ({item}) => {
+const ChatComponent: React.FC<ChatComponentInterface> = ({
+  item,
+  selectCallback,
+}) => {
   const {sender, message, recipee} = item;
+  const [recipees, setRecipees] = useState<RecipeeObject[] | []>(recipee);
+
+  useEffect(() => {
+    setRecipees(recipee);
+  }, [recipee]);
+
+  const [selectedRecipee, setSelectedRecipee] = useState<
+    RecipeeObject | undefined
+  >(undefined);
+
+  const onSelectItem = (selected: RecipeeObject) => {
+    setSelectedRecipee(selected);
+    selectCallback(selected);
+    setRecipees([]);
+  };
+
+  const renderItem = (item: RecipeeObject) => {
+    return (
+      <RecipeeCard
+        item={item}
+        isSaveable={true}
+        onSelect={() => onSelectItem(item)}
+      />
+    );
+  };
 
   const showRecippes = () => {
-    if (recipee.length < 1) {
+    if (recipees.length < 1) {
       return;
     }
 
-    const renderItem = (item: RecipeeObject) => {
-      return <RecipeeCard item={item} isSaveable={true} />;
-    };
-
     return (
       <FlatList
-        data={recipee}
+        data={recipees}
         renderItem={({item}) => renderItem(item)}
         contentContainerStyle={styles.flatlistContainer}
+        style={{marginTop: 20}}
       />
     );
+  };
+
+  const showSelectedRecipee = () => {
+    if (selectedRecipee) {
+      return renderItem(selectedRecipee);
+    }
   };
 
   return (
@@ -56,6 +87,7 @@ const ChatComponent: React.FC<ChatComponentInterface> = ({item}) => {
 
       <View style={styles.chatContainer}>
         <Text>{message}</Text>
+        {showSelectedRecipee()}
         {showRecippes()}
       </View>
     </View>
@@ -70,7 +102,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 5,
   },
-  flatlistContainer: {width: '100%', maxHeight: 300, backgroundColor: 'red'},
+  flatlistContainer: {width: '100%', maxHeight: 300},
   userIconContainer: {
     height: 40,
     width: 40,

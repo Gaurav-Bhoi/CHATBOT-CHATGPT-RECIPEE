@@ -43,6 +43,7 @@ export enum storageKeys {
 
 export interface ChatComponentInterface {
   item: chatInterface;
+  selectCallback: (selected: RecipeeObject) => void;
 }
 
 export interface getRecipeeInterface {
@@ -54,11 +55,16 @@ export interface RecipeeObject {
   image: string;
   imageType: string;
   title: string;
+  servings: number;
+  pricePerServing: number;
+  license: string;
+  spoonacularSourceUrl: string;
 }
 
 export interface RecipeeCardInterface {
   item: RecipeeObject;
   isSaveable: boolean;
+  onSelect: (selected: RecipeeObject) => void;
 }
 
 export interface saveRecipeeInterFace {
@@ -66,6 +72,9 @@ export interface saveRecipeeInterFace {
 }
 
 export interface getRecipeesInterFace {
+  (...args: [string]): Promise<RecipeeObject[]>;
+}
+export interface getSelectedRecipeesInterFace {
   (...args: [string]): Promise<RecipeeObject[]>;
 }
 

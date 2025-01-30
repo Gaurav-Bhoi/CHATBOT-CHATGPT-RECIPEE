@@ -25,3 +25,23 @@ export const _getData = async (key: string) => {
     return [];
   }
 };
+
+export const _setSelectedRecipee = async (key: string, data: RecipeeObject) => {
+  try {
+    const JSONStringify = JSON.stringify(data);
+    await AsyncStorage.setItem(key, JSONStringify);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const _getSelectedRecipee = async (key: string) => {
+  try {
+    const selectedRecipee = await AsyncStorage.getItem(key);
+    const JSONRecipees = selectedRecipee ? JSON.parse(selectedRecipee) : {};
+    return JSONRecipees;
+  } catch {
+    return [];
+  }
+};

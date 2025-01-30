@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
-  Alert,
+  Dimensions,
   FlatList,
   Keyboard,
+  Modal,
   PermissionsAndroid,
   Platform,
   StyleSheet,
@@ -15,13 +16,16 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   ChatbotScreenProps,
   chatInterface,
+  RecipeeObject,
   senderType,
 } from '../Interface/interface';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import {askBot} from '../Service/openAI_Service';
 import ChatComponent from '../Components/ChatComponent';
 import Voice from '@react-native-voice/voice';
+import WebView from 'react-native-webview';
 
 const Chatbot = ({}: ChatbotScreenProps) => {
   const [text, setText] = useState<string>('');
@@ -29,7 +33,11 @@ const Chatbot = ({}: ChatbotScreenProps) => {
   const [isListening, setIsListening] = useState<boolean>(false);
   const flatListRef = useRef<FlatList<chatInterface>>(null);
   const [recText, setRecText] = useState<string>('');
+  const [selected, setSelected] = useState<RecipeeObject | undefined>(
+    undefined,
+  );
 
+  const [modalVisible, setModalVisible] = useState(false);
   const callBotService = useCallback(async (input: string) => {
     setChat(prevChat => {
       const newData = prevChat.filter(ele => ele.message !== 'typing...');
@@ -101,7 +109,15 @@ const Chatbot = ({}: ChatbotScreenProps) => {
   }, [onSendText, recText]);
 
   const renderItem = (item: chatInterface) => {
-    return <ChatComponent item={item} />;
+    return (
+      <ChatComponent
+        item={item}
+        selectCallback={selected => {
+          setModalVisible(true);
+          setSelected(selected);
+        }}
+      />
+    );
   };
 
   const listEmptyComponent = () => {
@@ -134,6 +150,41 @@ const Chatbot = ({}: ChatbotScreenProps) => {
     setIsListening(false);
   };
 
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const renderModal = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={toggleModal}>
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={{
+                marginTop: 5,
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+                paddingRight: 20,
+              }}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <MaterialIcons name="cancel" size={30} color="red" />
+            </TouchableOpacity>
+            {selected?.spoonacularSourceUrl && (
+              <WebView
+                source={{uri: selected?.spoonacularSourceUrl}}
+                style={styles.webview}
+                scrollEnabled={true}
+              />
+            )}
+          </View>
+        </View>
+      </Modal>
+    );
+  };
   return (
     <View style={{flex: 1}}>
       <FlatList
@@ -176,13 +227,51 @@ const Chatbot = ({}: ChatbotScreenProps) => {
           <Icon name="microphone" size={20} color="black" />
         </TouchableOpacity>
       </View>
+      {renderModal()}
     </View>
   );
 };
 
 export default Chatbot;
+const {height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+  webviewContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  webview: {
+    flex: 1,
+    marginTop: 10,
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '100%',
+    height: height * 0.8,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  closeButton: {
+    backgroundColor: '#dc3545',
+    padding: 10,
+    borderRadius: 5,
+  },
   textBoxContainer: {
     flex: 1,
     borderColor: '#d3d3d3',
