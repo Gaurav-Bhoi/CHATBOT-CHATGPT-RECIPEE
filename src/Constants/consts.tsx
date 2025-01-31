@@ -7,3 +7,5 @@ export const HUGGINGFACE_KEYWORD_MODEL =
   'https://api-inference.huggingface.co/models/ml6team/keyphrase-extraction-kbir-inspec';
 export const HUGGINGFACE_CHATBOT_MODEL =
   'https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill';
+
+export const GOOGLE_API_KEY = 'AIzaSyCiKwLco3-PghaRLzn049dm6nGSaHa5hYo';

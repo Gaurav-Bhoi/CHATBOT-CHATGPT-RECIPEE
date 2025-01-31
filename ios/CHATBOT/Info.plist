@@ -20,6 +20,8 @@
     <string>Octicons.ttf</string>
     <string>Zocial.ttf</string>
 </array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your microphone for speech recognition.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

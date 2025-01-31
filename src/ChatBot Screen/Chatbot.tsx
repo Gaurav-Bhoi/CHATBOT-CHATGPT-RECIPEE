@@ -3,9 +3,11 @@ import {
   Dimensions,
   FlatList,
   Keyboard,
+  KeyboardAvoidingView,
   Modal,
   PermissionsAndroid,
   Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -19,25 +21,35 @@ import {
   RecipeeObject,
   senderType,
 } from '../Interface/interface';
+import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
-import {askBot} from '../Service/openAI_Service';
+import {askBot, sendAudioToGoogle} from '../Service/openAI_Service';
 import ChatComponent from '../Components/ChatComponent';
-import Voice from '@react-native-voice/voice';
 import WebView from 'react-native-webview';
+import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 
 const Chatbot = ({}: ChatbotScreenProps) => {
   const [text, setText] = useState<string>('');
   const [chat, setChat] = useState<chatInterface[]>([]);
   const [isListening, setIsListening] = useState<boolean>(false);
   const flatListRef = useRef<FlatList<chatInterface>>(null);
-  const [recText, setRecText] = useState<string>('');
   const [selected, setSelected] = useState<RecipeeObject | undefined>(
     undefined,
   );
-
+  const audioRecorderPlayer = new AudioRecorderPlayer();
   const [modalVisible, setModalVisible] = useState(false);
+  const audioPath = `${RNFS.DocumentDirectoryPath}/voice.wav`;
+
+  const ensureDirectoryExists = async () => {
+    const dirPath = RNFS.DocumentDirectoryPath;
+    const exists = await RNFS.exists(dirPath);
+    if (!exists) {
+      await RNFS.mkdir(dirPath);
+    }
+  };
+
   const callBotService = useCallback(async (input: string) => {
     setChat(prevChat => {
       const newData = prevChat.filter(ele => ele.message !== 'typing...');
@@ -85,28 +97,23 @@ const Chatbot = ({}: ChatbotScreenProps) => {
     [callBotService],
   );
 
-  useEffect(() => {
-    Voice.onSpeechStart = () => {
-      setIsListening(true);
-    };
-    Voice.onSpeechEnd = () => {
-      setIsListening(false);
-      onSendText(recText);
-    };
-    Voice.onSpeechResults = event => {
-      onSendText(event.value?.[0] ?? '');
-    };
-    Voice.onSpeechPartialResults = event => {
-      if (event.value?.[0]) {
-        setRecText(event.value?.[0]);
-      }
-    };
-    Voice.onSpeechError = () => setIsListening(false);
+  const startRecording = async () => {
+    await ensureDirectoryExists();
+    setIsListening(true);
+    setText('');
+    await audioRecorderPlayer.startRecorder(audioPath);
+  };
 
-    return () => {
-      Voice.destroy().then(Voice.removeAllListeners);
-    };
-  }, [onSendText, recText]);
+  const stopRecording = async () => {
+    setIsListening(false);
+    await audioRecorderPlayer.stopRecorder();
+    const message = await sendAudioToGoogle(audioPath);
+    console.log('this is message', message);
+    if (message) {
+      onSendText(message);
+    }
+    console.log(message);
+  };
 
   const renderItem = (item: chatInterface) => {
     return (
@@ -137,17 +144,6 @@ const Chatbot = ({}: ChatbotScreenProps) => {
       return granted === PermissionsAndroid.RESULTS.GRANTED;
     }
     return true;
-  };
-
-  const startListening = async () => {
-    setText('');
-    await Voice.destroy();
-    await Voice.start('en-US');
-  };
-
-  const stopListening = async () => {
-    await Voice.stop();
-    setIsListening(false);
   };
 
   const toggleModal = () => {
@@ -185,51 +181,61 @@ const Chatbot = ({}: ChatbotScreenProps) => {
       </Modal>
     );
   };
-  return (
-    <View style={{flex: 1}}>
-      <FlatList
-        ref={flatListRef}
-        data={chat}
-        renderItem={({item}) => renderItem(item)}
-        style={styles.flatlist}
-        ListEmptyComponent={listEmptyComponent}
-        onContentSizeChange={scrollToBottom}
-        onLayout={scrollToBottom}
-        // contentContainerStyle={styles.flatlist2}
-      />
-      <View style={styles.inputContainer}>
-        <View style={styles.textBoxContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Ask for a recipe..."
-            value={text}
-            onChangeText={setText}
-          />
+  const renderContent = () => {
+    return (
+      <View style={{flex: 1}}>
+        <FlatList
+          ref={flatListRef}
+          data={chat}
+          renderItem={({item}) => renderItem(item)}
+          style={styles.flatlist}
+          ListEmptyComponent={listEmptyComponent}
+          onContentSizeChange={scrollToBottom}
+          onLayout={scrollToBottom}
+          // contentContainerStyle={styles.flatlist2}
+        />
+        <View style={styles.inputContainer}>
+          <View style={styles.textBoxContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Ask for a recipe..."
+              value={text}
+              onChangeText={setText}
+            />
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={() => onSendText(text)}
+              disabled={text === ''}>
+              <Feather name="send" size={20} color="black" />
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={() => onSendText(text)}
-            disabled={text === ''}>
-            <Feather name="send" size={20} color="black" />
+            style={[
+              styles.sendButton,
+              {backgroundColor: isListening ? 'red' : '#4caf50'},
+            ]}
+            onPressIn={startRecording}
+            onPressOut={stopRecording}>
+            <Icon name="microphone" size={20} color="black" />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={[
-            styles.sendButton,
-            {backgroundColor: isListening ? 'red' : '#4caf50'},
-          ]}
-          onPress={isListening ? stopListening : startListening}
-          // onPressIn={() => {
-          //   if (!isListening) {
-          //     startListening();
-          //   }
-          // }}
-        >
-          <Icon name="microphone" size={20} color="black" />
-        </TouchableOpacity>
+        {renderModal()}
       </View>
-      {renderModal()}
-    </View>
-  );
+    );
+  };
+
+  if (Platform.OS === 'ios') {
+    return (
+      <KeyboardAvoidingView
+        style={{flex: 1}}
+        keyboardVerticalOffset={100}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        {renderContent()}
+      </KeyboardAvoidingView>
+    );
+  } else {
+    return renderContent();
+  }
 };
 
 export default Chatbot;
@@ -288,7 +294,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-
+    color: 'black',
     fontSize: 12,
     paddingVertical: 0,
     textAlignVertical: 'center',

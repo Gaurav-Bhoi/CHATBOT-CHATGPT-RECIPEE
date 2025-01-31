@@ -2,6 +2,11 @@ import axios from 'axios';
 import {getRecipeeInterface, senderType} from '../Interface/interface';
 import {SPOONACULAR_API_KEY, SPOONACULAR_URL} from '../Constants/consts';
 
+/**
+ * @description This function accepts extracted keywords and returns array of object containing recipees.
+ * @param  {{(...args: [string])}} - input
+ * @returns {{Promise<chatInterface>}} -  sender: string, message: string, recipee: RecipeeObject[]
+ */
 export const getRecipee: getRecipeeInterface = async (...args) => {
   try {
     const [input] = args;

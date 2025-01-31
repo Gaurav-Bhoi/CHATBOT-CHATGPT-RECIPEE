@@ -15,6 +15,7 @@ const ChatComponent: React.FC<ChatComponentInterface> = ({
   selectCallback,
 }) => {
   const {sender, message, recipee} = item;
+
   const [recipees, setRecipees] = useState<RecipeeObject[] | []>(recipee);
 
   useEffect(() => {
@@ -86,7 +87,7 @@ const ChatComponent: React.FC<ChatComponentInterface> = ({
       </View>
 
       <View style={styles.chatContainer}>
-        <Text>{message}</Text>
+        <Text style={{color: 'black'}}>{message}</Text>
         {showSelectedRecipee()}
         {showRecippes()}
       </View>

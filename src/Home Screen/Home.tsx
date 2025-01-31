@@ -25,6 +25,11 @@ const Home = ({}: HomeScreenProps) => {
   const [selected, setSelected] = useState<RecipeeObject | undefined>(
     undefined,
   );
+
+  /**
+   * @description This function returns all saved recipees in async storage
+   * @returns {{JSONRecipees: <RecipeeObject[] | []>}} - if gives array of recipee objects if its available in storage else returns empty array
+   */
   const getAllRecipees = useCallback(async () => {
     const allRecipees = await getRecipees(storageKeys.savedRecipeesKey);
     setRecipees(allRecipees);
@@ -81,6 +86,12 @@ const Home = ({}: HomeScreenProps) => {
     );
   };
 
+  const listHeaderComponent = () => {
+    <Text style={{fontSize: 14, color: 'black', fontWeight: '500'}}>
+      Saved Recipees
+    </Text>;
+  };
+
   const listEmptyComponent = () => {
     return <Text>No Saved Recipees</Text>;
   };
@@ -90,6 +101,7 @@ const Home = ({}: HomeScreenProps) => {
         data={recipees}
         renderItem={({item}) => renderItem(item)}
         ListEmptyComponent={listEmptyComponent}
+        ListHeaderComponent={listHeaderComponent}
         keyExtractor={item => String(item.id)}
         style={styles.flatlistStyle2}
         contentContainerStyle={[
